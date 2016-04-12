@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>弹性运动</title>
+  <style media="screen">
+    #div1{width:100px;height:20px;background: red;position:absolute;}
+  </style>
+  <script type="text/javascript">
+    window.onload = function() {  //弹性运动不适合过界情况
+      var oDiv = document.getElementById('div1');
+
+      oDiv.onmouseover = function() {
+        startMove(this, 200);
+      };
+      oDiv.onmouseout = function() {
+        startMove(this,20)
+      }
+    }
+
+    var iSpeed = 0;
+    var height = 20;
+    function startMove(obj,iTarget) {
+      clearInterval(obj.timer);
+
+      obj.timer = setInterval(function() {
+        iSpeed += (iTarget - height)/5;
+        iSpeed *= 0.7;
+
+        if(Math.abs(iSpeed) < 1 && Math.abs(iTarget - height) < 1) {
+          clearInterval(obj.timer);
+
+          obj.style.height = iTarget + 'px';
+        } else {
+          height += iSpeed;
+
+          if(height < 0) {
+            height = 0;
+          }
+
+          obj.style.height = height + 'px';
+        }
+      },30);
+    }
+  </script>
+  </head>
+  <body>
+    <div id="div1">
+
+    </div>
+  </body>
+</html>
